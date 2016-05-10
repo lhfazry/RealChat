@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Real Chat</string>
+    <string name="base_url">http://realchat.fazrilabs.com/</string>
+</resources>
