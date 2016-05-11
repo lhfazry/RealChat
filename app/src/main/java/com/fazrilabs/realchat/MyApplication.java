@@ -47,7 +47,7 @@ public class MyApplication extends android.app.Application {
             if(!username.isEmpty()) {
                 newUser(username);
             }
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

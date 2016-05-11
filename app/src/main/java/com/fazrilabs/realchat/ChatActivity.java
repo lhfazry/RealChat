@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.fazrilabs.realchat.adapter.MessageListAdapter;
 import com.fazrilabs.realchat.event.MessageEvent;
 import com.fazrilabs.realchat.model.Message;
-import com.fazrilabs.realchat.util.MyRequest;
+import com.fazrilabs.realchat.util.RequestUtil;
 import com.fazrilabs.realchat.util.PrefUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -118,7 +118,7 @@ public class ChatActivity extends AppCompatActivity implements AbsListView.OnScr
             }
         });
 
-        MyRequest.getInstance(this).addToRequestQueue(jsonObjectRequest);
+        RequestUtil.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override
@@ -163,8 +163,10 @@ public class ChatActivity extends AppCompatActivity implements AbsListView.OnScr
         Message message = event.message;
         Log.d(TAG, "onEvent MessageEvent:" + message.message);
 
-        mAdapter.add(message);
-        mAdapter.notifyDataSetChanged();
+        if(message.topicId.equals(mTopicId)) {
+            mAdapter.add(message);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

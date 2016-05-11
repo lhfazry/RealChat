@@ -3,6 +3,7 @@ package com.fazrilabs.realchat.util;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.media.RingtoneManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.fazrilabs.realchat.R;
@@ -16,6 +17,7 @@ public class NotificationUtil {
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(message)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
 

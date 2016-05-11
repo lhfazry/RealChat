@@ -12,13 +12,13 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by blastocode on 5/4/16.
  */
-public class MyRequest {
-    private static MyRequest mInstance;
+public class RequestUtil {
+    private static RequestUtil mInstance;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
-    private MyRequest(Context context) {
+    private RequestUtil(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
 
@@ -39,9 +39,9 @@ public class MyRequest {
                 });
     }
 
-    public static synchronized MyRequest getInstance(Context context) {
+    public static synchronized RequestUtil getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new MyRequest(context);
+            mInstance = new RequestUtil(context);
         }
         return mInstance;
     }

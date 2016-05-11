@@ -18,7 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.fazrilabs.realchat.adapter.TopicListAdapter;
 import com.fazrilabs.realchat.event.TopicEvent;
 import com.fazrilabs.realchat.model.Topic;
-import com.fazrilabs.realchat.util.MyRequest;
+import com.fazrilabs.realchat.util.RequestUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final String TAG = "MainActivity";
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private void loadTopics() {
         Log.d(TAG, "Load topics");
         mProgressBar.setVisibility(View.VISIBLE);
-        final String URL = getString(R.string.base_url) + "topic";
+        final String URL = getString(R.string.base_url) + "topic?t=" + new Date().getTime();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL,
                 new Response.Listener<JSONObject>() {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         Topic topic = new Topic();
                         topic.id = id;
                         topic.title = title;
-                        mAdapter.add(topic);
+                        mAdapter.insert(topic, 0);
                     }
 
                     mAdapter.notifyDataSetChanged();
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
-        MyRequest.getInstance(this).addToRequestQueue(jsonObjectRequest);
+        RequestUtil.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 
     @Override
@@ -145,8 +146,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String title = data.getStringExtra("title");
+        try {
+            String title = data.getStringExtra("title");
+            ((MyApplication) getApplication()).newTopic(title);
+        }
+        catch(Exception e) {
 
-        ((MyApplication) getApplication()).newTopic(title);
+        }
     }
 }

@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.fazrilabs.realchat.util.MyRequest;
+import com.fazrilabs.realchat.util.RequestUtil;
 import com.fazrilabs.realchat.util.PopupUtil;
 import com.fazrilabs.realchat.util.PrefUtil;
 
@@ -102,6 +102,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             });
 
-        MyRequest.getInstance(this).addToRequestQueue(jsonRequest);
+        RequestUtil.getInstance(this).addToRequestQueue(jsonRequest);
     }
 }
